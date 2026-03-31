@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import tw from '@/lib/tailwind';
 import { Colors, Shadows } from '@/lib/design-system';
 import { Order } from '@/shared/types/order';
-import { OrderStatusBadge } from './OrderStatusBadge';
 import { OrderTypeBadge } from './OrderTypeBadge';
 import { CustomerAvatar } from './CustomerAvatar';
 
@@ -36,21 +36,13 @@ interface OrderCardProps {
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export function OrderCard({ order, onAccept, onReject, onMarkDelivered }: OrderCardProps) {
+  const router = useRouter();
   const { id, customerName, quantity, status, orderType, amount, distance, createdAt } = order;
 
   const handleAccept = () => onAccept?.(order);
   const handleReject = () => onReject?.(order);
 
-  const handleMarkDelivered = () => {
-    Alert.alert(
-      'Mark as Delivered',
-      `Confirm delivery for ${customerName}'s order?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Confirm', style: 'default', onPress: () => onMarkDelivered?.(id) },
-      ]
-    );
-  };
+  // ── Render Helpers ──────────────────────────────────────────────────────────
 
   return (
     <View
@@ -131,12 +123,11 @@ export function OrderCard({ order, onAccept, onReject, onMarkDelivered }: OrderC
         {status === 'in_transit' && (
           <TouchableOpacity
             style={tw`bg-brand rounded-xl py-2.5 items-center flex-row justify-center gap-2 mt-1`}
-            onPress={handleMarkDelivered}
-            accessibilityLabel={`Mark order from ${customerName} as delivered`}
+            onPress={() => router.push(`/order/${id}` as any)}
+            accessibilityLabel={`Complete order from ${customerName}`}
             accessibilityRole="button"
           >
-            <Ionicons name="checkmark-done-outline" size={18} color={Colors.white} />
-            <Text style={tw`text-white font-semibold text-sm`}>Mark as Delivered</Text>
+            <Text style={tw`text-white font-semibold text-sm`}>Complete this order</Text>
           </TouchableOpacity>
         )}
 

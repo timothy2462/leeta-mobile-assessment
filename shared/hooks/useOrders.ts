@@ -1,4 +1,5 @@
-import { useReducer, useEffect, useCallback, useMemo } from 'react';
+import { useReducer, useCallback, useMemo } from 'react';
+import { useFocusEffect } from 'expo-router';
 import {
   Order,
   OrderFilter,
@@ -129,9 +130,11 @@ export function useOrders(): UseOrdersReturn {
     }
   }, []);
 
-  useEffect(() => {
-    loadOrders();
-  }, [loadOrders]);
+  useFocusEffect(
+    useCallback(() => {
+      loadOrders();
+    }, [loadOrders])
+  );
 
   // ── Filter ─────────────────────────────────────────────────────────────────
   const setFilter = useCallback((filter: OrderFilter) => {
