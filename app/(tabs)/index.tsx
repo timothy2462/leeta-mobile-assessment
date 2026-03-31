@@ -151,6 +151,7 @@ export default function OrdersDashboard() {
             iconName="receipt-outline"
             iconColor={Colors.brand.DEFAULT}
             iconBg={Colors.brand.light}
+            flex={1}
           />
           <StatsCard
             label="Today's Earnings"
@@ -158,6 +159,7 @@ export default function OrdersDashboard() {
             iconName="wallet-outline"
             iconColor={Colors.info.DEFAULT}
             iconBg={Colors.info.light}
+            flex={1.5}
           />
         </View>
 

@@ -9,13 +9,15 @@ interface StatsCardProps {
   iconName: React.ComponentProps<typeof Ionicons>['name'];
   iconColor: string;
   iconBg: string; // hex color for background tint
+  flex?: number;
 }
 
-export function StatsCard({ label, value, iconName, iconColor, iconBg }: StatsCardProps) {
+export function StatsCard({ label, value, iconName, iconColor, iconBg, flex = 1 }: StatsCardProps) {
   return (
     <View
       style={[
-        tw`flex-1 bg-white rounded-xl p-4`,
+        tw`bg-white rounded-xl p-4`,
+        { flex },
         Shadows.sm,
       ]}
     >
