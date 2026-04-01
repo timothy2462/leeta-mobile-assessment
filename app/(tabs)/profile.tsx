@@ -14,7 +14,7 @@ import { BottomSheet } from '@/components/ui/BottomSheet';
 import { AuthButton } from '@/components/auth/AuthButton';
 
 export default function ProfileScreen() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [onlineStatus, setOnlineStatus] = useState(true);
   const [logoutVisible, setLogoutVisible] = useState(false);
@@ -38,84 +38,84 @@ export default function ProfileScreen() {
         <ProfileHeader />
 
         <ProfileSection title="Business & Documents">
-          <ProfileMenuItem 
-            label="Business Profile" 
-            icon="business" 
+          <ProfileMenuItem
+            label="Business Profile"
+            icon="business"
           />
-          <ProfileMenuItem 
-            label="Document Verification" 
-            icon="document-text" 
+          <ProfileMenuItem
+            label="Document Verification"
+            icon="document-text"
           />
-          <ProfileMenuItem 
-            label="Payout Bank Account" 
-            icon="wallet" 
-            isLast 
+          <ProfileMenuItem
+            label="Payout Bank Account"
+            icon="wallet"
+            isLast
           />
         </ProfileSection>
 
         <ProfileSection title="Preferences & Security">
-          <ProfileMenuItem 
-            label="Order Notifications" 
-            icon="notifications" 
-            showSwitch 
+          <ProfileMenuItem
+            label="Order Notifications"
+            icon="notifications"
+            showSwitch
             switchValue={notificationsEnabled}
             onSwitchChange={setNotificationsEnabled}
           />
-          <ProfileMenuItem 
-            label="Availability Mode" 
-            icon="time" 
+          <ProfileMenuItem
+            label="Availability Mode"
+            icon="time"
             showSwitch
             switchValue={onlineStatus}
             onSwitchChange={setOnlineStatus}
           />
-          <ProfileMenuItem 
-            label="Security & Password" 
-            icon="shield-checkmark" 
+          <ProfileMenuItem
+            label="Security & Password"
+            icon="shield-checkmark"
           />
-          <ProfileMenuItem 
-            label="Vehicle Information" 
-            icon="car-sport" 
-            isLast 
+          <ProfileMenuItem
+            label="Vehicle Information"
+            icon="car-sport"
+            isLast
           />
         </ProfileSection>
 
         <ProfileSection title="Support & Legal">
-          <ProfileMenuItem 
-            label="Help Center & FAQs" 
-            icon="help-circle" 
+          <ProfileMenuItem
+            label="Help Center & FAQs"
+            icon="help-circle"
           />
-          <ProfileMenuItem 
-            label="Contact Support" 
-            icon="chatbubbles" 
+          <ProfileMenuItem
+            label="Contact Support"
+            icon="chatbubbles"
           />
-          <ProfileMenuItem 
-            label="Terms of Service" 
-            icon="reader" 
+          <ProfileMenuItem
+            label="Terms of Service"
+            icon="reader"
           />
-          <ProfileMenuItem 
-            label="Privacy Policy" 
-            icon="lock-closed" 
-            isLast 
+          <ProfileMenuItem
+            label="Privacy Policy"
+            icon="lock-closed"
+            isLast
           />
         </ProfileSection>
 
         <ProfileSection title="Account Actions">
-          <ProfileMenuItem 
-            label="Log Out" 
-            icon="log-out" 
+          <ProfileMenuItem
+            label="Log Out"
+            icon="log-out"
             onPress={handleLogout}
           />
-          <ProfileMenuItem 
-            label="Delete Account" 
-            icon="trash" 
-            destructive 
-            isLast 
+          <ProfileMenuItem
+            label="Delete Account"
+            icon="trash"
+            destructive
+            isLast
           />
         </ProfileSection>
       </ScrollView>
 
-      <BottomSheet 
-        visible={logoutVisible} 
+      <BottomSheet
+        visible={logoutVisible}
         onClose={() => setLogoutVisible(false)}
       >
         <View style={tw`items-center mb-6`}>
@@ -129,13 +129,13 @@ export default function ProfileScreen() {
         </View>
 
         <View style={tw`gap-3`}>
-          <AuthButton 
-            title="Log Out" 
+          <AuthButton
+            title="Log Out"
             onPress={confirmLogout}
             style={tw`bg-error`}
           />
-          <AuthButton 
-            title="Cancel" 
+          <AuthButton
+            title="Cancel"
             variant="outline"
             onPress={() => setLogoutVisible(false)}
           />
