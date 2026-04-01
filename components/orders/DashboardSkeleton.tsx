@@ -130,7 +130,7 @@ export function DashboardSkeleton() {
           <SkeletonBox width={150} height={16} rounded="md" />
         </View>
 
-        s        {[0, 1, 2].map((i) => (
+        {[0, 1, 2].map((i) => (
           <SkeletonOrderCard key={i} />
         ))}
       </ScrollView>
