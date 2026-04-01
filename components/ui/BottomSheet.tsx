@@ -25,21 +25,26 @@ export function BottomSheet({ visible, onClose, children }: BottomSheetProps) {
         <View style={tw`flex-1 justify-end`}>
           {/* Backdrop */}
           <TouchableWithoutFeedback onPress={onClose}>
-            <View style={[StyleSheet.absoluteFill, tw`bg-black/50`]} />
+            <View style={[StyleSheet.absoluteFill, tw`bg-black/5`]} />
           </TouchableWithoutFeedback>
 
           {/* Content */}
           <View
             style={[
               tw`bg-white rounded-t-3xl overflow-hidden`,
-              { paddingBottom: Math.max(insets.bottom, 20) }, // safe area
+              {
+                paddingBottom: Math.max(insets.bottom, 20),
+                alignSelf: 'center',
+                width: '100%',
+                maxWidth: 600
+              },
             ]}
           >
             {/* Grabber handle */}
             <View style={tw`items-center pt-3 pb-2`}>
               <View style={tw`w-12 h-1.5 bg-neutral-200 rounded-full`} />
             </View>
-            
+
             <View style={tw`px-5 pt-2 pb-5`}>
               {children}
             </View>

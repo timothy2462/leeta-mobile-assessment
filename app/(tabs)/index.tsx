@@ -15,6 +15,7 @@ import { StatusBar } from 'expo-status-bar';
 import tw from '@/lib/tailwind';
 import { Colors, Shadows } from '@/lib/design-system';
 import { useOrders } from '@/shared/hooks/useOrders';
+import { useAuth } from '@/shared/contexts/AuthContext';
 import { Order, OrderFilter } from '@/shared/types/order';
 
 import { OrderCard } from '@/components/orders/OrderCard';
@@ -43,6 +44,7 @@ function getSectionLabel(filter: OrderFilter, count: number): string {
 // ── Main Screen ───────────────────────────────────────────────────────────────
 
 export default function OrdersDashboard() {
+  const { user } = useAuth();
   const {
     filteredOrders,
     todayStats,
@@ -126,7 +128,7 @@ export default function OrdersDashboard() {
         <View style={tw`flex-row items-center justify-between px-5 pt-2 pb-4`}>
           <View>
             <Text style={tw`text-2xl font-bold text-neutral-900`}>Orders</Text>
-            <Text style={tw`text-sm text-neutral-500 mt-0.5`}>GasHub Enterprise</Text>
+            <Text style={tw`text-sm text-neutral-500 mt-0.5`}>{user?.businessName || 'Leeta Agent'}</Text>
           </View>
           <View style={tw`flex-row items-center gap-3`}>
             <Switch

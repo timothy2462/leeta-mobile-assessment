@@ -38,7 +38,7 @@ function log(level: LogLevel, message: string, data?: Record<string, unknown>): 
 
   if (__DEV__) {
     const prefix = `${LEVEL_EMOJI[level]} [Leeta] ${entry.timestamp}`;
-    const logFn = level === 'error' ? console.error
+    const logFn = level === 'error' ? console.log
       : level === 'warn' ? console.warn
       : level === 'debug' ? console.log
       : console.info;

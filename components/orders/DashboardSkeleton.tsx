@@ -84,7 +84,7 @@ function SkeletonOrderCard() {
 
 export function DashboardSkeleton() {
   return (
-    <SafeAreaView style={tw`flex-1 bg-neutral-100`}>
+    <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]}>
       <ScrollView
         scrollEnabled={false}
         showsVerticalScrollIndicator={false}

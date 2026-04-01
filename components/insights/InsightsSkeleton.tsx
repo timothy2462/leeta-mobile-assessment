@@ -55,7 +55,7 @@ function SkeletonBox({
 
 export function InsightsSkeleton() {
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#F4F5F9]`} edges={['top']}>
+    <SafeAreaView style={[tw`flex-1 bg-[#F4F5F9]`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <ScrollView
         scrollEnabled={false}
         showsVerticalScrollIndicator={false}

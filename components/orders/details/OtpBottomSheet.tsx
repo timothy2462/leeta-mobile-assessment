@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Keyboard, Platform } from 'react-native';
 import tw from '@/lib/tailwind';
 import { BottomSheet } from '@/components/ui/BottomSheet';
 
@@ -57,7 +57,7 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
           onChangeText={(text) => setCode(text.replace(/[^0-9]/g, '').slice(0, 4))}
           keyboardType="number-pad"
           maxLength={4}
-          style={[tw`absolute opacity-0`, { width: 1, height: 1 }]}
+          style={[tw`absolute opacity-0`, { width: 1, height: 1 }, Platform.OS === 'web' && { outlineStyle: 'none' } as any]}
           caretHidden
           contextMenuHidden
         />
