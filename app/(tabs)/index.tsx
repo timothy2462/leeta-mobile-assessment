@@ -24,6 +24,7 @@ import { FilterTabs } from '@/components/orders/FilterTabs';
 import { EmptyState } from '@/components/orders/EmptyState';
 import { DashboardSkeleton } from '@/components/orders/DashboardSkeleton';
 import { OrderConfirmationSheet } from '@/components/orders/OrderConfirmationSheet';
+import { Toast } from '@/components/ui/Toast';
 import { formatNaira } from '@/utils';
 
 
@@ -61,6 +62,8 @@ export default function OrdersDashboard() {
 
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [sheetAction, setSheetAction] = useState<'accept' | 'reject' | null>(null);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleOpenAcceptSheet = useCallback((order: Order) => {
     setSelectedOrder(order);
@@ -81,10 +84,14 @@ export default function OrdersDashboard() {
     if (!selectedOrder || !sheetAction) return;
     if (sheetAction === 'accept') {
       acceptOrder(selectedOrder.id);
+      setToastMessage('Order accepted successfully!');
     } else {
       rejectOrder(selectedOrder.id);
+      setToastMessage('Order rejected successfully.');
     }
-  }, [selectedOrder, sheetAction, acceptOrder, rejectOrder]);
+    setToastVisible(true);
+    handleCloseSheet();
+  }, [selectedOrder, sheetAction, acceptOrder, rejectOrder, handleCloseSheet]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -271,6 +278,12 @@ export default function OrdersDashboard() {
         visible={!!sheetAction}
         onClose={handleCloseSheet}
         onConfirm={handleConfirmSheet}
+      />
+
+      <Toast
+        visible={toastVisible}
+        message={toastMessage}
+        onHide={() => setToastVisible(false)}
       />
     </SafeAreaView>
   );
