@@ -8,7 +8,6 @@ import tw from '@/lib/tailwind';
 import { Colors } from '@/lib/design-system';
 import { ptData, mockReviews } from '@/shared/data/mock-insights';
 
-// ── Components ─────────────────────────────────────────────────────────────────
 import { MetricCard } from '@/components/insights/MetricCard';
 import { InsightsChart } from '@/components/insights/InsightsChart';
 import { ReviewsSection } from '@/components/insights/ReviewsSection';
@@ -21,7 +20,6 @@ export default function InsightsScreen() {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const loadData = useCallback(() => {
-    // Simulate loading for 1.5 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -58,7 +56,6 @@ export default function InsightsScreen() {
           />
         }
       >
-        {/* Header Section */}
         <View style={tw`mb-8`}>
           <Text style={tw`text-[28px] font-bold text-neutral-900`}>Insights</Text>
           <Text style={tw`text-sm text-neutral-500 mt-1 leading-5`}>
@@ -66,9 +63,7 @@ export default function InsightsScreen() {
           </Text>
         </View>
 
-        {/* ── Metric Cards Grid ── */}
 
-        {/* Row 1 */}
         <View style={tw`flex-row gap-3 mb-3`}>
           <MetricCard
             title="Orders this Week"
@@ -88,7 +83,6 @@ export default function InsightsScreen() {
           />
         </View>
 
-        {/* Row 2 */}
         <View style={tw`flex-row gap-3 mb-3`}>
           <MetricCard
             title="Active Customers"
@@ -98,7 +92,6 @@ export default function InsightsScreen() {
             iconBg={Colors.brand.light}
           />
 
-          {/* Custom Ratings Card */}
           <View style={[tw`flex-1 bg-white rounded-2xl p-4 shadow-sm`]}>
             <Text style={tw`text-xs font-medium text-neutral-800 mb-2`}>
               Ratings
@@ -138,14 +131,12 @@ export default function InsightsScreen() {
           />
         </View>
 
-        {/* ── Order Trends Chart ── */}
         <Text style={tw`text-base font-bold text-neutral-900 mb-4`}>
           Order Trends
         </Text>
 
         <InsightsChart data={ptData} />
 
-        {/* ── Tabs: Reviews / Next Moves ── */}
         <View style={tw`flex-row bg-neutral-200 rounded-xl p-1 mb-6 mt-2`}>
           <TouchableOpacity
             onPress={() => setActiveTab('reviews')}
@@ -183,7 +174,6 @@ export default function InsightsScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* ── Dynamic Content ── */}
         {activeTab === 'reviews' ? (
           <ReviewsSection reviews={mockReviews} />
         ) : (

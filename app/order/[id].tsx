@@ -9,7 +9,6 @@ import tw from '@/lib/tailwind';
 import { Colors } from '@/lib/design-system';
 import { useOrders } from '@/shared/hooks/useOrders';
 
-// Route Subcomponents
 import { DetailsSkeleton } from '@/components/orders/details/DetailsSkeleton';
 import { OrderTimelineCard } from '@/components/orders/details/OrderTimelineCard';
 import { CustomerContextCard } from '@/components/orders/details/CustomerContextCard';
@@ -21,17 +20,14 @@ export default function OrderDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  
-  // Manage Order Data
+
   const { orders, markDelivered, isLoading: isOrdersLoading } = useOrders();
   const order = orders.find((o) => o.id === id);
 
-  // States
   const [isLoading, setIsLoading] = useState(true);
   const [sheetVisible, setSheetVisible] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
 
-  // MOCK: Emulate network fetch visualization for entering the screen
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -40,38 +36,32 @@ export default function OrderDetailsScreen() {
   }, [id]);
 
   const handleCompleteOrder = async (code: string) => {
-    // 1. Hide the OTP Sheet
     setSheetVisible(false);
-    
-    // 2. Mark delivered dynamically via our hook state mapping
+
     if (id) {
       await markDelivered(id);
     }
-    
-    // 3. Trigger success toast
+
     setToastVisible(true);
-    
-    // 4. Navigate back to the Orders Dashboard after showing toast
+
     setTimeout(() => {
       router.back();
     }, 1500);
   };
-  
+
   const showSkeleton = isLoading || isOrdersLoading;
 
   return (
     <SafeAreaView style={[tw`flex-1 bg-[#F4F5F9]`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <Stack.Screen options={{ headerShown: false }} />
       <StatusBar style="dark" />
-      
-      {/* Absolute Positioned Toast */}
-      <Toast 
+
+      <Toast
         visible={toastVisible}
         message="Order Delivered Successfully!"
         onHide={() => setToastVisible(false)}
       />
-      
-      {/* ── Custom App Header ── */}
+
       <View style={tw`flex-row items-center px-4 py-3 bg-[#F4F5F9]`}>
         <TouchableOpacity
           style={tw`p-2 -ml-2 rounded-full`}
@@ -84,48 +74,46 @@ export default function OrderDetailsScreen() {
         <Text style={tw`text-lg font-bold text-neutral-900 ml-2`}>Order details</Text>
       </View>
 
-      {/* ── Main Content Area ── */}
       {showSkeleton || !order ? (
         <DetailsSkeleton />
       ) : (
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
           style={tw`flex-1`}
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 44 : 0}
         >
-          <ScrollView 
+          <ScrollView
             style={tw`flex-1`}
             contentContainerStyle={tw`px-5 pt-4 pb-32`}
             showsVerticalScrollIndicator={false}
           >
-            <OrderTimelineCard 
+            <OrderTimelineCard
               customerName={order.customerName}
               dateString={new Date(order.createdAt).toLocaleString()}
               orderId={order.id}
               amount={(order.amount).toLocaleString()}
             />
 
-            <CustomerContextCard 
+            <CustomerContextCard
               customerName={order.customerName}
               phone={order.phone}
             />
 
-            <OrderItemsSummary 
+            <OrderItemsSummary
               orderId={order.id}
               orderType={
-                order.orderType === 'pickup_refill' ? 'Refill' : 
-                order.orderType === 'home_delivery' ? 'Delivery' : 'Exchange'
+                order.orderType === 'pickup_refill' ? 'Refill' :
+                  order.orderType === 'home_delivery' ? 'Delivery' : 'Exchange'
               }
               amount={order.amount}
             />
           </ScrollView>
 
-          {/* ── Pinned Action Button at Bottom ── */}
           {order.status === 'in_transit' && (
-             <View style={[
-               tw`absolute bottom-0 left-0 right-0 bg-white px-5 pt-4 border-t border-neutral-100 shadow-sm`, 
-               { paddingBottom: Math.max(insets.bottom, 16) }
-              ]}>
+            <View style={[
+              tw`absolute bottom-0 left-0 right-0 bg-white px-5 pt-4 border-t border-neutral-100 shadow-sm`,
+              { paddingBottom: Math.max(insets.bottom, 16) }
+            ]}>
               <TouchableOpacity
                 onPress={() => setSheetVisible(true)}
                 style={tw`w-full py-4 rounded-2xl bg-brand shadow items-center justify-center`}
@@ -139,8 +127,7 @@ export default function OrderDetailsScreen() {
         </KeyboardAvoidingView>
       )}
 
-      {/* ── OTP Sheet ── */}
-      <OtpBottomSheet 
+      <OtpBottomSheet
         visible={sheetVisible}
         onClose={() => setSheetVisible(false)}
         customerName={order?.customerName}

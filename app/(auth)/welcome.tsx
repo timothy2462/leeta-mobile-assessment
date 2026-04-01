@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import tw from '@/lib/tailwind';
-import { Colors, Shadows, Typography } from '@/lib/design-system';
+import { Colors, Shadows, } from '@/lib/design-system';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { StatusBar } from 'expo-status-bar';
 
@@ -17,7 +17,6 @@ export default function WelcomeScreen() {
         contentContainerStyle={tw`flex-grow px-6 pt-6 pb-10`}
         showsVerticalScrollIndicator={false}
       >
-        {/* Logo/Illustration Area */}
         <View style={tw`items-center justify-center py-6`}>
           <View style={[tw`w-20 h-20 bg-brand rounded-3xl items-center justify-center mb-6`, Shadows.lg]}>
             <Text style={tw`text-white text-4xl font-bold`}>L</Text>
@@ -31,7 +30,6 @@ export default function WelcomeScreen() {
           </Text>
         </View>
 
-        {/* Feature Highlights */}
         <View style={tw`flex-1 gap-4 mb-10`}>
           <FeatureItem
             icon="receipt-outline"
@@ -50,7 +48,6 @@ export default function WelcomeScreen() {
           />
         </View>
 
-        {/* Bottom Actions */}
         <View style={tw`gap-4`}>
           <AuthButton
             title="Login to Dashboard"

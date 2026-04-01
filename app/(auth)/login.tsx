@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import tw from '@/lib/tailwind';
-import { Colors, Shadows } from '@/lib/design-system';
+import { Colors, } from '@/lib/design-system';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { useAuth } from '@/shared/contexts/AuthContext';
@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default function LoginScreen() {
   const router = useRouter();
   const { login } = useAuth();
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,20 +22,20 @@ export default function LoginScreen() {
   const validate = () => {
     const newErrors: typeof errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (!email) newErrors.email = 'Email address is required';
     else if (!emailRegex.test(email)) newErrors.email = 'Please enter a valid email';
-    
+
     if (!password) newErrors.password = 'Password is required';
     else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleLogin = async () => {
     if (!validate()) return;
-    
+
     setIsSubmitting(true);
     try {
       await login(email, password);
@@ -49,17 +49,16 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={[tw`flex-1 bg-white`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]}>
       <StatusBar style="dark" />
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={tw`flex-1`}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={tw`flex-grow px-6 pt-12 pb-10`}
           showsVerticalScrollIndicator={false}
         >
-          {/* Header */}
-          <TouchableOpacity 
-            onPress={() => router.back()} 
+          <TouchableOpacity
+            onPress={() => router.back()}
             style={tw`w-12 h-12 bg-neutral-100 rounded-full items-center justify-center mb-10`}
           >
             <Ionicons name="arrow-back" size={24} color={Colors.neutral[800]} />
@@ -74,7 +73,6 @@ export default function LoginScreen() {
             </Text>
           </View>
 
-          {/* Form */}
           <View style={tw`flex-1`}>
             <AuthInput
               label="Email Address"

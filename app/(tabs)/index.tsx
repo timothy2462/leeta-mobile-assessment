@@ -24,12 +24,8 @@ import { FilterTabs } from '@/components/orders/FilterTabs';
 import { EmptyState } from '@/components/orders/EmptyState';
 import { DashboardSkeleton } from '@/components/orders/DashboardSkeleton';
 import { OrderConfirmationSheet } from '@/components/orders/OrderConfirmationSheet';
+import { formatNaira } from '@/utils';
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-function formatNaira(amount: number): string {
-  return `₦${amount.toLocaleString('en-NG')}`;
-}
 
 function getSectionLabel(filter: OrderFilter, count: number): string {
   const labels: Record<OrderFilter, string> = {
@@ -41,7 +37,6 @@ function getSectionLabel(filter: OrderFilter, count: number): string {
   return `${labels[filter]} ( ${count} )`;
 }
 
-// ── Main Screen ───────────────────────────────────────────────────────────────
 
 export default function OrdersDashboard() {
   const { user } = useAuth();
@@ -51,7 +46,6 @@ export default function OrdersDashboard() {
     counts,
     isLoading,
     isError,
-    isEmpty,
     error,
     filter,
     setFilter,
@@ -65,7 +59,6 @@ export default function OrdersDashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [completedLimit, setCompletedLimit] = useState(5);
 
-  // Bottom Sheet State
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [sheetAction, setSheetAction] = useState<'accept' | 'reject' | null>(null);
 
@@ -81,7 +74,7 @@ export default function OrdersDashboard() {
 
   const handleCloseSheet = useCallback(() => {
     setSheetAction(null);
-    setTimeout(() => setSelectedOrder(null), 350); // clear after slide animation closes
+    setTimeout(() => setSelectedOrder(null), 350);
   }, []);
 
   const handleConfirmSheet = useCallback(() => {
@@ -93,19 +86,16 @@ export default function OrdersDashboard() {
     }
   }, [selectedOrder, sheetAction, acceptOrder, rejectOrder]);
 
-  // Pull-to-refresh handler
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     await refresh();
     setIsRefreshing(false);
   }, [refresh]);
 
-  // Handle "See more" for completed orders
   const handleSeeMore = useCallback(() => {
     setCompletedLimit(prev => prev + 10);
   }, []);
 
-  // ── List item renderer (memoised key extractor + render) ──────────────────
   const keyExtractor = useCallback((item: Order) => item.id, []);
 
   const renderItem: ListRenderItem<Order> = useCallback(
@@ -120,11 +110,9 @@ export default function OrdersDashboard() {
     [handleOpenAcceptSheet, handleOpenRejectSheet, markDelivered]
   );
 
-  // ── List header ───────────────────────────────────────────────────────────
   const ListHeader = useCallback(
     () => (
       <>
-        {/* ── App header ─────────────────────────────────────────────────── */}
         <View style={tw`flex-row items-center justify-between px-5 pt-2 pb-4`}>
           <View>
             <Text style={tw`text-2xl font-bold text-neutral-900`}>Orders</Text>
@@ -151,7 +139,6 @@ export default function OrdersDashboard() {
           </View>
         </View>
 
-        {/* ── Stats row ─────────────────────────────────────────────────── */}
         <View style={tw`flex-row gap-3 px-5 mb-4`}>
           <StatsCard
             label="Today's Orders"
@@ -171,7 +158,6 @@ export default function OrdersDashboard() {
           />
         </View>
 
-        {/* ── Gas price card ─────────────────────────────────────────────── */}
         <View
           style={[
             tw`mx-5 mb-4 bg-white rounded-xl px-4 py-3 flex-row items-center justify-between`,
@@ -196,14 +182,12 @@ export default function OrdersDashboard() {
           </TouchableOpacity>
         </View>
 
-        {/* ── Filter tabs ───────────────────────────────────────────────── */}
         <FilterTabs
           filter={filter}
           onFilterChange={setFilter}
           counts={counts}
         />
 
-        {/* ── Section title ─────────────────────────────────────────────── */}
         <View style={tw`px-5 pb-3`}>
           <Text style={tw`text-base font-semibold text-neutral-900`}>
             {getSectionLabel(filter, filteredOrders.length)}
@@ -214,12 +198,11 @@ export default function OrdersDashboard() {
     [isOnline, todayStats, filter, setFilter, counts, filteredOrders.length]
   );
 
-  // ── List footer ───────────────────────────────────────────────────────────
   const ListFooter = useCallback(
     () => {
       if (filter === 'delivered' && filteredOrders.length > completedLimit) {
         return (
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={handleSeeMore}
             style={tw`mx-5 mt-2 mb-8 py-3 bg-white border border-neutral-200 rounded-xl items-center justify-center`}
           >
@@ -232,7 +215,6 @@ export default function OrdersDashboard() {
     [filter, filteredOrders.length, completedLimit, handleSeeMore]
   );
 
-  // ── List Empty ────────────────────────────────────────────────────────────
   const ListEmpty = useCallback(
     () =>
       isError ? (
@@ -243,17 +225,14 @@ export default function OrdersDashboard() {
     [isError, error, refresh]
   );
 
-  // ── Display logic ─────────────────────────────────────────────────────────
-  const displayedOrders = filter === 'delivered' 
-    ? filteredOrders.slice(0, completedLimit) 
+  const displayedOrders = filter === 'delivered'
+    ? filteredOrders.slice(0, completedLimit)
     : filteredOrders;
 
-  // ── Full-screen loading (first load only) ─────────────────────────────────
   if (isLoading) {
     return <DashboardSkeleton />;
   }
 
-  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <StatusBar style="dark" />

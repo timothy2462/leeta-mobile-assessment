@@ -1,5 +1,4 @@
 import { Tabs } from 'expo-router';
-import { View, Text } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import tw from '@/lib/tailwind';
