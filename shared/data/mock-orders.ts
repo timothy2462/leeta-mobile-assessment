@@ -1,12 +1,6 @@
 import { Order } from '../types/order';
 
-/**
- * Mock orders — realistic Nigerian LPG delivery data.
- * This is the single source of truth for mock data used by both mobile & web.
- *
- * In production, this would be replaced by a real API response.
- * Spread over time so timestamps render naturally in the UI.
- */
+
 export const mockOrders: Order[] = [
   {
     id: 'ORD-001',

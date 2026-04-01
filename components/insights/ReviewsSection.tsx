@@ -17,7 +17,6 @@ interface ReviewsSectionProps {
 export function ReviewsSection({ reviews }: ReviewsSectionProps) {
   return (
     <View>
-      {/* Global Rating Card */}
       <View
         style={tw`bg-[#101010] rounded-3xl p-6 items-center justify-center mb-6`}
       >

@@ -14,7 +14,6 @@ export function OrderItemsSummary({ orderId, orderType, amount }: OrderItemsSumm
     <View style={tw`mb-10`}>
       <Text style={tw`text-sm font-semibold text-neutral-700 mb-4 ml-1`}>Order items</Text>
 
-      {/* Item summary card */}
       <View style={tw`bg-white rounded-2xl p-5 shadow-sm mb-4 flex-row items-center justify-between`}>
         <View style={tw`flex-row items-center gap-3 flex-1 pr-4`}>
           <View style={tw`w-10 h-10 bg-neutral-100 rounded-lg items-center justify-center`}>
@@ -28,7 +27,6 @@ export function OrderItemsSummary({ orderId, orderType, amount }: OrderItemsSumm
         <Text style={tw`text-sm font-semibold text-neutral-900`}>₦27,000</Text>
       </View>
 
-      {/* Financial breakdown */}
       <View style={tw`bg-white rounded-2xl p-5 shadow-sm`}>
         <View style={tw`flex-row justify-between mb-4`}>
           <Text style={tw`text-sm text-neutral-500`}>Order #</Text>

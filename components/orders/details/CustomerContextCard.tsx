@@ -13,8 +13,7 @@ export function CustomerContextCard({ customerName, phone }: CustomerContextCard
   return (
     <View style={tw`bg-white rounded-2xl p-5 mb-4 shadow-sm`}>
       <Text style={tw`text-sm font-semibold text-neutral-700 mb-4`}>Customer details</Text>
-      
-      {/* Avatar & Contact Layout */}
+
       <View style={tw`flex-row items-center justify-between mb-6`}>
         <View style={tw`flex-row items-center gap-3`}>
           <CustomerAvatar name={customerName} size="lg" />
@@ -34,12 +33,10 @@ export function CustomerContextCard({ customerName, phone }: CustomerContextCard
         </View>
       </View>
 
-      {/* Address Context */}
       <Text style={tw`text-sm font-semibold text-neutral-900 mb-2`}>Delivery Address</Text>
       <Text style={tw`text-xs text-neutral-600 mb-1`}>12 Bukola estate, Boulevard, Victoria Island</Text>
       <Text style={tw`text-xs font-semibold text-brand mb-4`}>1.8km from you</Text>
 
-      {/* Alert Notice */}
       <View style={tw`flex-row gap-1.5 items-center`}>
         <MaterialCommunityIcons name="information-outline" size={14} color={Colors.success.DEFAULT} />
         <Text style={tw`text-xs font-medium text-success`}>Delivery requires PIN confirmation</Text>

@@ -14,7 +14,6 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
   const [code, setCode] = useState('');
   const inputRef = useRef<TextInput>(null);
 
-  // Reset when opening
   useEffect(() => {
     if (visible) {
       setCode('');
@@ -31,9 +30,9 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
     if (isComplete) {
       if (code !== '1234') {
         const { logger } = require('@/lib/logger');
-        logger.error('Invalid OTP attempt', { 
-          customer: customerName, 
-          attempt: code 
+        logger.error('Invalid OTP attempt', {
+          customer: customerName,
+          attempt: code
         });
       }
       onComplete(code);
@@ -50,7 +49,6 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
           Please enter the 4-digit pin from {customerName || 'the customer'} to confirm you have safely delivered this order.
         </Text>
 
-        {/* Hidden Input field for robust native typing/pasting */}
         <TextInput
           ref={inputRef}
           value={code}
@@ -62,7 +60,6 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
           contextMenuHidden
         />
 
-        {/* Visual OTP Boxes */}
         <View style={tw`flex-row justify-center gap-4 mb-8`}>
           {[0, 1, 2, 3].map((index) => {
             const digit = code[index] || '';
@@ -84,7 +81,6 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
           })}
         </View>
 
-        {/* Action Button */}
         <TouchableOpacity
           onPress={handleComplete}
           disabled={!isComplete}

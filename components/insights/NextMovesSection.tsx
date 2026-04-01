@@ -6,7 +6,6 @@ import { Colors } from '@/lib/design-system';
 export function NextMovesSection() {
   return (
     <View style={tw`gap-4 mb-10`}>
-      {/* Next Moves Content */}
       <View style={tw`bg-info-light rounded-2xl p-5 border border-info/10`}>
         <View style={tw`flex-row items-center gap-2 mb-2`}>
           <Ionicons name="trending-up" size={18} color={Colors.info.dark} />

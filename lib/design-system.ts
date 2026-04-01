@@ -1,18 +1,13 @@
 /**
  * Leeta Design System
- * -------------------
- * Single source of truth for all design tokens used in the app.
- * Use these constants alongside twrnc (`tw`) for consistent styling.
- *
+ 
  * Pattern:
  *   import tw from '@/lib/tailwind';
  *   import { Colors, Typography, Spacing, Icons } from '@/lib/design-system';
  */
 
-// ─────────────────────────────────────────────────────────────────────────────
 // COLORS
 // Mirrors tailwind.config.js exactly — typed for autocomplete & safety.
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const Colors = {
   // Brand
@@ -66,10 +61,7 @@ export const Colors = {
   overlay: 'rgba(0,0,0,0.5)',
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ORDER STATUS
-// Centralised config for status badge color + label — use everywhere.
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 export type OrderStatus = 'pending' | 'in_transit' | 'delivered';
 
@@ -97,10 +89,6 @@ export const OrderStatusConfig: Record<
   },
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// TYPOGRAPHY
-// Consistent text style presets. Pair with tw`` for React Native.
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const Typography = {
   // Screen headings
@@ -124,26 +112,20 @@ export const Typography = {
   linkSm: 'text-sm font-medium text-brand',
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SPACING
-// Raw pixel values matching the Tailwind spacing scale.
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 export const Spacing = {
-  xs: 4,    // spacing-1
-  sm: 8,    // spacing-2
-  md: 12,   // spacing-3
-  base: 16, // spacing-4
-  lg: 20,   // spacing-5
-  xl: 24,   // spacing-6
-  '2xl': 32, // spacing-8
-  '3xl': 40, // spacing-10
-  '4xl': 48, // spacing-12
+  xs: 4,    
+  sm: 8,    
+  md: 12,   
+  base: 16, 
+  lg: 20,   
+  xl: 24,   
+  '2xl': 32, 
+  '3xl': 40, 
+  '4xl': 48, 
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BORDER RADIUS
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const Radius = {
   sm: 4,
@@ -155,21 +137,8 @@ export const Radius = {
   full: 9999,
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ICONS
-// All icons are from @expo/vector-icons (Ionicons + MaterialCommunityIcons).
-// Each entry documents: library, name, and recommended size/color context.
-// ─────────────────────────────────────────────────────────────────────────────
-
-/**
- * Icon library shorthands:
- *   Ionicons          → "Ion"
- *   MaterialCommunityIcons → "MCI"
- *   Feather           → "F"
- */
 
 export const Icons = {
-  // ── Navigation / Tab Bar ──────────────────────────────────────────────────
   tabOrders: { library: 'Ionicons' as const, name: 'receipt-outline' },
   tabOrdersActive: { library: 'Ionicons' as const, name: 'receipt' },
   tabAnalytics: { library: 'Ionicons' as const, name: 'bar-chart-outline' },
@@ -177,13 +146,11 @@ export const Icons = {
   tabProfile: { library: 'Ionicons' as const, name: 'person-circle-outline' },
   tabProfileActive: { library: 'Ionicons' as const, name: 'person-circle' },
 
-  // ── Header / App Bar ──────────────────────────────────────────────────────
   notification: { library: 'Ionicons' as const, name: 'notifications-outline' },
   notificationBadge: { library: 'Ionicons' as const, name: 'notifications' },
   back: { library: 'Ionicons' as const, name: 'arrow-back' },
   menu: { library: 'Ionicons' as const, name: 'menu-outline' },
 
-  // ── Orders ────────────────────────────────────────────────────────────────
   order: { library: 'MaterialCommunityIcons' as const, name: 'gas-cylinder' },
   orderDelivered: { library: 'Ionicons' as const, name: 'checkmark-circle' },
   orderPending: { library: 'Ionicons' as const, name: 'time-outline' },
@@ -192,18 +159,15 @@ export const Icons = {
   reject: { library: 'Ionicons' as const, name: 'close-circle-outline' },
   markDelivered: { library: 'Ionicons' as const, name: 'checkmark-done-outline' },
 
-  // ── Stats / Dashboard ─────────────────────────────────────────────────────
   todayOrders: { library: 'Ionicons' as const, name: 'list-outline' },
   earnings: { library: 'Ionicons' as const, name: 'wallet-outline' },
   gasPrice: { library: 'MaterialCommunityIcons' as const, name: 'gas-station' },
 
-  // ── Customer / Contact ────────────────────────────────────────────────────
   phone: { library: 'Ionicons' as const, name: 'call-outline' },
   message: { library: 'Ionicons' as const, name: 'chatbubble-outline' },
   location: { library: 'Ionicons' as const, name: 'location-outline' },
   copy: { library: 'Ionicons' as const, name: 'copy-outline' },
 
-  // ── Utility ───────────────────────────────────────────────────────────────
   close: { library: 'Ionicons' as const, name: 'close' },
   search: { library: 'Ionicons' as const, name: 'search-outline' },
   filter: { library: 'Ionicons' as const, name: 'filter-outline' },
@@ -216,10 +180,6 @@ export const Icons = {
   chevronDown: { library: 'Ionicons' as const, name: 'chevron-down' },
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ICON SIZES
-// Standardised sizes — pick one, be consistent.
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const IconSize = {
   xs: 14,
@@ -230,16 +190,13 @@ export const IconSize = {
   '2xl': 32,
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// COMPONENT STYLE PRESETS (twrnc class strings)
-// Ready-to-use tw`` class strings for recurring patterns.
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 export const Styles = {
   // Containers
   screen: 'flex-1 bg-neutral-100',
   card: 'bg-white rounded-xl p-4',
-  cardShadow: 'bg-white rounded-xl p-4', // combine with RN shadow style below
+  cardShadow: 'bg-white rounded-xl p-4', 
 
   // Buttons
   btnPrimary: 'bg-brand rounded-xl py-4 px-6 items-center justify-center',
@@ -265,10 +222,7 @@ export const Styles = {
   rowBetween: 'flex-row items-center justify-between',
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SHADOWS (React Native style objects – not available in twrnc classnames)
-// Import these directly into `style` props as needed.
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 export const Shadows = {
   sm: {

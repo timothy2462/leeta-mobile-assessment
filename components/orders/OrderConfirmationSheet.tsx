@@ -36,7 +36,6 @@ export function OrderConfirmationSheet({
         <Text style={tw`text-sm text-neutral-500 text-center`}>{description}</Text>
       </View>
 
-      {/* Customer summary */}
       <View style={tw`bg-neutral-50 rounded-xl p-4 mb-5 border border-neutral-100`}>
         <View style={tw`flex-row items-center gap-3 mb-4`}>
           <CustomerAvatar name={order.customerName} size="md" />
@@ -49,9 +48,8 @@ export function OrderConfirmationSheet({
           </View>
         </View>
 
-        {/* Order Details Grid */}
         <View style={tw`flex-row flex-wrap border-t border-neutral-200 pt-3`}>
-          
+
           <View style={tw`w-1/2 mb-3 items-center flex-row gap-2`}>
             <View style={tw`w-8 h-8 rounded-full bg-brand-light items-center justify-center`}>
               <MaterialCommunityIcons name="gas-cylinder" size={16} color={Colors.brand.DEFAULT} />
@@ -87,7 +85,6 @@ export function OrderConfirmationSheet({
         </View>
       </View>
 
-      {/* Buttons */}
       <View style={tw`flex-row gap-3`}>
         <TouchableOpacity
           style={tw`flex-1 py-3.5 rounded-xl border border-neutral-200 items-center justify-center`}

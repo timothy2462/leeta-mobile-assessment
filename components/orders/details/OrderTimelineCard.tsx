@@ -11,7 +11,6 @@ interface OrderTimelineCardProps {
 }
 
 export function OrderTimelineCard({ customerName, dateString, orderId, amount }: OrderTimelineCardProps) {
-  // Hardcoded tracker status array to match the design (4 done, 1 pending)
   const steps = [true, true, true, true, false];
 
   return (
@@ -29,10 +28,8 @@ export function OrderTimelineCard({ customerName, dateString, orderId, amount }:
         <Text style={tw`text-sm text-neutral-400`}>Order {orderId}</Text>
       </View>
 
-      {/* Timeline Layout */}
       <View style={tw`w-full mb-3`}>
         <View style={tw`flex-row items-center justify-between relative`}>
-          {/* Continuous tracking line across the back */}
           <View style={tw`absolute left-3 right-3 h-0.5 bg-success top-1/2 -mt-px z-0`} />
 
           {steps.map((isDone, index) => {

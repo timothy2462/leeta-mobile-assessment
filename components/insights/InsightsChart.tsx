@@ -57,7 +57,7 @@ export function InsightsChart({ data }: InsightsChartProps) {
               <View
                 style={[
                   tw`bg-[#FEF6EF] rounded-xl p-3 shadow-sm border border-brand/10 w-[105px]`,
-                  { marginLeft: -42, marginTop: -20 }, // Center horizontally and lift up above dot
+                  { marginLeft: -42, marginTop: -20 },
                 ]}
               >
                 <Text style={tw`text-xs font-bold text-neutral-900 mb-2`}>

@@ -7,7 +7,6 @@ import { Order } from '@/shared/types/order';
 import { OrderTypeBadge } from './OrderTypeBadge';
 import { CustomerAvatar } from './CustomerAvatar';
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatTimeAgo(dateStr: string): string {
   const diffMs = Date.now() - new Date(dateStr).getTime();
@@ -24,7 +23,6 @@ function formatNaira(amount: number): string {
   return `₦${amount.toLocaleString('en-NG')}`;
 }
 
-// ── Types ─────────────────────────────────────────────────────────────────────
 
 interface OrderCardProps {
   order: Order;
@@ -33,7 +31,6 @@ interface OrderCardProps {
   onMarkDelivered?: (id: string) => void;
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
 
 export function OrderCard({ order, onAccept, onReject, onMarkDelivered }: OrderCardProps) {
   const router = useRouter();
@@ -42,14 +39,13 @@ export function OrderCard({ order, onAccept, onReject, onMarkDelivered }: OrderC
   const handleAccept = () => onAccept?.(order);
   const handleReject = () => onReject?.(order);
 
-  // ── Render Helpers ──────────────────────────────────────────────────────────
 
   return (
     <View
       style={[tw`bg-white mx-5 mb-3 rounded-xl overflow-hidden`, Shadows.sm]}
       accessibilityLabel={`Order from ${customerName}`}
     >
-      <TouchableOpacity 
+      <TouchableOpacity
         style={tw`p-4`}
         onPress={() => router.push(`/order/${id}` as any)}
         activeOpacity={0.7}
@@ -98,7 +94,6 @@ export function OrderCard({ order, onAccept, onReject, onMarkDelivered }: OrderC
 
       <View style={tw`px-4 pb-4`}>
 
-        {/* ── Action buttons ───────────────────────────────────────────────── */}
         {status === 'pending' && (
           <View style={tw`flex-row gap-3 mt-1`}>
             <TouchableOpacity

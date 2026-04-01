@@ -68,7 +68,6 @@ export function useOrders(): UseOrdersReturn {
 
   const { state, dispatch } = context;
 
-  // ── Fetch ──────────────────────────────────────────────────────────────────
   const loadOrders = useCallback(async () => {
     dispatch({ type: 'FETCH_START' });
     logger.info('Fetching orders');
@@ -91,7 +90,6 @@ export function useOrders(): UseOrdersReturn {
     }, [loadOrders, state.status])
   );
 
-  // ── Filter ─────────────────────────────────────────────────────────────────
   const setFilter = useCallback((filter: OrderFilter) => {
     dispatch({ type: 'SET_FILTER', payload: filter });
   }, [dispatch]);

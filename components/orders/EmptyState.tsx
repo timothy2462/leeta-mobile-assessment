@@ -14,7 +14,6 @@ export function EmptyState({ type, message, onRetry }: EmptyStateProps) {
 
   return (
     <View style={tw`flex-1 items-center justify-center px-8 py-16`}>
-      {/* Icon */}
       <View
         style={[
           tw`w-20 h-20 rounded-full items-center justify-center mb-5`,
@@ -28,12 +27,10 @@ export function EmptyState({ type, message, onRetry }: EmptyStateProps) {
         />
       </View>
 
-      {/* Title */}
       <Text style={tw`text-lg font-semibold text-neutral-900 mb-2 text-center`}>
         {isError ? 'Something went wrong' : 'No orders yet'}
       </Text>
 
-      {/* Message */}
       <Text style={tw`text-sm text-neutral-500 text-center mb-6 leading-5`}>
         {message ??
           (isError
@@ -41,7 +38,6 @@ export function EmptyState({ type, message, onRetry }: EmptyStateProps) {
             : 'New orders will appear here once customers place requests.')}
       </Text>
 
-      {/* Retry button (error state only) */}
       {isError && onRetry && (
         <TouchableOpacity
           style={tw`bg-brand rounded-xl px-8 py-3`}

@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import tw from '@/lib/tailwind';
-import { Colors } from '@/lib/design-system';
 import { OrderFilter } from '@/shared/types/order';
 
 interface FilterTabsProps {

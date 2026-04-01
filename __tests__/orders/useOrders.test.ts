@@ -15,14 +15,12 @@ beforeEach(() => {
 });
 
 describe('useOrders', () => {
-  // ── Initial loading state ────────────────────────────────────────────────
   it('starts in loading state', () => {
     const { result } = renderHook(() => useOrders());
     expect(result.current.isLoading).toBe(true);
     expect(result.current.orders).toHaveLength(0);
   });
 
-  // ── Successful data load ──────────────────────────────────────────────────
   it('loads orders successfully', async () => {
     const { result } = renderHook(() => useOrders());
 
@@ -35,7 +33,6 @@ describe('useOrders', () => {
     expect(result.current.isError).toBe(false);
   });
 
-  // ── Error state ───────────────────────────────────────────────────────────
   it('enters error state when API fails', async () => {
     __setForceError(true);
     const { result } = renderHook(() => useOrders());
@@ -49,25 +46,19 @@ describe('useOrders', () => {
     expect(result.current.error).toBeTruthy();
   });
 
-  // ── Empty state (filtered) ────────────────────────────────────────────────
   it('isEmpty is true when filter returns no results', async () => {
     const { result } = renderHook(() => useOrders());
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
-
-    // Switch to a filter that has no orders to trigger empty state
-    // (works if all in_transit orders are somehow cleared — here we just verify the logic)
     act(() => {
       result.current.setFilter('in_transit');
     });
 
-    // filteredOrders should only contain in_transit orders
     result.current.filteredOrders.forEach((order) => {
       expect(order.status).toBe('in_transit');
     });
   });
 
-  // ── Filter ────────────────────────────────────────────────────────────────
   it('filters orders by status correctly', async () => {
     const { result } = renderHook(() => useOrders());
     await waitFor(() => expect(result.current.isLoading).toBe(false));

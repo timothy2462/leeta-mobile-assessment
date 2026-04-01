@@ -9,10 +9,8 @@ import { render, fireEvent, screen } from '@testing-library/react-native';
 import { OrderCard } from '@/components/orders/OrderCard';
 import { Order } from '@/shared/types/order';
 
-// ── Mock Alert (suppresses Alert.alert in tests) ──────────────────────────────
 jest.mock('react-native/Libraries/Alert/Alert', () => ({
   alert: jest.fn((_, __, buttons) => {
-    // Auto-press the confirm button in tests
     const confirm = buttons?.find(
       (b: { text: string }) =>
         b.text === 'Accept' || b.text === 'Reject' || b.text === 'Confirm'
@@ -21,7 +19,6 @@ jest.mock('react-native/Libraries/Alert/Alert', () => ({
   }),
 }));
 
-// ── Fixtures ─────────────────────────────────────────────────────────────────
 
 const baseOrder: Order = {
   id: 'TEST-001',
@@ -38,10 +35,8 @@ const baseOrder: Order = {
 
 const makeOrder = (overrides: Partial<Order>): Order => ({ ...baseOrder, ...overrides });
 
-// ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe('OrderCard', () => {
-  // ── Renders required fields ─────────────────────────────────────────────
   it('renders customer name', () => {
     render(<OrderCard order={baseOrder} />);
     expect(screen.getByText(/Test Customer/i)).toBeTruthy();
@@ -62,7 +57,6 @@ describe('OrderCard', () => {
     expect(screen.getByText('1.5 km')).toBeTruthy();
   });
 
-  // ── Status-specific buttons ─────────────────────────────────────────────
   it('shows Accept and Reject buttons for pending orders', () => {
     render(<OrderCard order={makeOrder({ status: 'pending' })} />);
     expect(screen.getByText('Accept')).toBeTruthy();
@@ -82,7 +76,6 @@ describe('OrderCard', () => {
     expect(screen.queryByText('Mark as Delivered')).toBeNull();
   });
 
-  // ── Callback invocations ─────────────────────────────────────────────────
   it('calls onAccept with the order id when Accept is pressed', () => {
     const onAccept = jest.fn();
     render(<OrderCard order={baseOrder} onAccept={onAccept} />);

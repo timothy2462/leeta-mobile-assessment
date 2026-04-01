@@ -8,14 +8,14 @@ interface CustomerAvatarProps {
 
 /** Deterministically pick an avatar color based on customer name */
 const AVATAR_COLORS = [
-  '#F97316', // brand orange
-  '#5B5BD6', // info indigo
-  '#22C55E', // success green
-  '#EF4444', // error red
-  '#A855F7', // purple
-  '#06B6D4', // cyan
-  '#F59E0B', // amber
-  '#EC4899', // pink
+  '#F97316',
+  '#5B5BD6',
+  '#22C55E',
+  '#EF4444',
+  '#A855F7',
+  '#06B6D4',
+  '#F59E0B',
+  '#EC4899',
 ];
 
 function getAvatarColor(name: string): string {
@@ -33,7 +33,7 @@ function getInitials(name: string): string {
 }
 
 const SIZE_CONFIG = {
-  sm: { containerClass: 'w-8 h-8 rounded-lg',  textClass: 'text-xs font-bold' },
+  sm: { containerClass: 'w-8 h-8 rounded-lg', textClass: 'text-xs font-bold' },
   md: { containerClass: 'w-10 h-10 rounded-xl', textClass: 'text-sm font-bold' },
   lg: { containerClass: 'w-12 h-12 rounded-xl', textClass: 'text-base font-bold' },
 };
@@ -47,7 +47,7 @@ export function CustomerAvatar({ name, size = 'md' }: CustomerAvatarProps) {
     <View
       style={[
         tw`${containerClass} items-center justify-center`,
-        { backgroundColor: color + '22' }, // 13% opacity tint
+        { backgroundColor: color + '22' },
       ]}
     >
       <Text style={[tw`${textClass}`, { color }]}>{initials}</Text>

@@ -9,10 +9,8 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react-nativ
 import OrdersDashboard from '@/app/(tabs)/index';
 import { __setForceError, __resetStore } from '@/shared/api/orders';
 
-// ── Mock expo-status-bar (not needed in test env) ─────────────────────────────
 jest.mock('expo-status-bar', () => ({ StatusBar: () => null }));
 
-// ── Mock react-native-safe-area-context ───────────────────────────────────────
 jest.mock('react-native-safe-area-context', () => {
   const React = require('react');
   return {
@@ -30,7 +28,6 @@ beforeEach(() => {
 });
 
 describe('OrdersDashboard screen', () => {
-  // ── Loading state ───────────────────────────────────────────────────────
   it('shows a loading skeleton while orders are being fetched', () => {
     render(<OrdersDashboard />);
     // During loading, the FlatList is not rendered — skeleton is shown instead
@@ -38,7 +35,6 @@ describe('OrdersDashboard screen', () => {
     expect(screen.queryByText('Pending Orders')).toBeNull();
   });
 
-  // ── Loaded state ────────────────────────────────────────────────────────
   it('renders the dashboard header and orders after loading', async () => {
     render(<OrdersDashboard />);
 
@@ -46,14 +42,11 @@ describe('OrdersDashboard screen', () => {
       expect(screen.getByText('Orders')).toBeTruthy();
     });
 
-    // Header
     expect(screen.getByText('GasHub Enterprise')).toBeTruthy();
 
-    // Stats
     expect(screen.getByText("Today's Orders")).toBeTruthy();
     expect(screen.getByText("Today's Earnings")).toBeTruthy();
 
-    // Filter tabs
     expect(screen.getByText('New')).toBeTruthy();
     expect(screen.getByText('Accepted')).toBeTruthy();
     expect(screen.getByText('Completed')).toBeTruthy();
@@ -68,7 +61,6 @@ describe('OrdersDashboard screen', () => {
     });
   });
 
-  // ── Error state ─────────────────────────────────────────────────────────
   it('shows an error state and retry button when the API fails', async () => {
     __setForceError(true);
     render(<OrdersDashboard />);
@@ -88,7 +80,6 @@ describe('OrdersDashboard screen', () => {
       expect(screen.getByText('Try again')).toBeTruthy();
     });
 
-    // Fix the error before retry
     __setForceError(false);
     fireEvent.press(screen.getByText('Try again'));
 
@@ -97,7 +88,6 @@ describe('OrdersDashboard screen', () => {
     });
   });
 
-  // ── Filter tabs ─────────────────────────────────────────────────────────
   it('switches filters when tabs are pressed', async () => {
     render(<OrdersDashboard />);
 
@@ -113,23 +103,16 @@ describe('OrdersDashboard screen', () => {
     });
   });
 
-  // ── Empty state ──────────────────────────────────────────────────────────
   it('shows an empty state message when no orders match the filter', async () => {
     render(<OrdersDashboard />);
     await waitFor(() => expect(screen.getByText('New')).toBeTruthy());
 
-    // Switch to 'Completed' tab — should have delivered orders
-    // Force empty by filtering to a guaranteed-empty scenario is complex,
-    // so we test by checking the EmptyState renders correctly for the concept.
-    // A deeper test would mock the hook's filteredOrders to return [].
+
     fireEvent.press(screen.getByText('Completed'));
 
-    // If there are delivered orders, we see them; if not, empty state shows
-    // Either way the tab switch works
     expect(screen.getByText('Completed')).toBeTruthy();
   });
 
-  // ── Mark as delivered flow ───────────────────────────────────────────────
   it('shows Mark as Delivered button for in_transit orders', async () => {
     render(<OrdersDashboard />);
 

@@ -23,12 +23,10 @@ export function BottomSheet({ visible, onClose, children }: BottomSheetProps) {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <View style={tw`flex-1 justify-end`}>
-          {/* Backdrop */}
           <TouchableWithoutFeedback onPress={onClose}>
             <View style={[StyleSheet.absoluteFill, tw`bg-black/5`]} />
           </TouchableWithoutFeedback>
 
-          {/* Content */}
           <View
             style={[
               tw`bg-white rounded-t-3xl overflow-hidden`,
@@ -40,7 +38,6 @@ export function BottomSheet({ visible, onClose, children }: BottomSheetProps) {
               },
             ]}
           >
-            {/* Grabber handle */}
             <View style={tw`items-center pt-3 pb-2`}>
               <View style={tw`w-12 h-1.5 bg-neutral-200 rounded-full`} />
             </View>
