@@ -1,11 +1,8 @@
-import { useReducer, useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useContext } from 'react';
 import { useFocusEffect } from 'expo-router';
 import {
   Order,
   OrderFilter,
-  OrderStatus,
-  OrdersState,
-  OrdersAction,
   TodayStats,
   DataStatus,
 } from '../types/order';
@@ -15,56 +12,7 @@ import {
   removeOrder,
 } from '../api/orders';
 import { logger } from '../../lib/logger';
-
-// ── State machine ─────────────────────────────────────────────────────────────
-
-const initialState: OrdersState = {
-  orders: [],
-  status: 'idle',
-  error: null,
-  filter: 'pending', // Start on the "New" tab by default
-};
-
-function reducer(state: OrdersState, action: OrdersAction): OrdersState {
-  switch (action.type) {
-    case 'FETCH_START':
-      return { ...state, status: 'loading', error: null };
-
-    case 'FETCH_SUCCESS':
-      return { ...state, status: 'success', orders: action.payload, error: null };
-
-    case 'FETCH_ERROR':
-      return { ...state, status: 'error', error: action.payload };
-
-    case 'SET_FILTER':
-      return { ...state, filter: action.payload };
-
-    case 'UPDATE_ORDER_STATUS':
-      return {
-        ...state,
-        orders: state.orders.map((o) =>
-          o.id === action.id ? { ...o, status: action.status } : o
-        ),
-      };
-
-    case 'REMOVE_ORDER':
-      return {
-        ...state,
-        orders: state.orders.filter((o) => o.id !== action.id),
-      };
-
-    case 'REVERT_ORDER':
-      return {
-        ...state,
-        orders: state.orders.map((o) =>
-          o.id === action.payload.id ? action.payload : o
-        ),
-      };
-
-    default:
-      return state;
-  }
-}
+import { OrdersContext } from '../contexts/OrdersContext';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -113,7 +61,12 @@ export interface UseOrdersReturn {
 }
 
 export function useOrders(): UseOrdersReturn {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const context = useContext(OrdersContext);
+  if (!context) {
+    throw new Error('useOrders must be used within an OrdersProvider');
+  }
+
+  const { state, dispatch } = context;
 
   // ── Fetch ──────────────────────────────────────────────────────────────────
   const loadOrders = useCallback(async () => {
@@ -128,18 +81,20 @@ export function useOrders(): UseOrdersReturn {
       dispatch({ type: 'FETCH_ERROR', payload: msg });
       logger.error('Order fetch failed', { error: msg });
     }
-  }, []);
+  }, [dispatch]);
 
   useFocusEffect(
     useCallback(() => {
-      loadOrders();
-    }, [loadOrders])
+      if (state.status === 'idle') {
+        loadOrders();
+      }
+    }, [loadOrders, state.status])
   );
 
   // ── Filter ─────────────────────────────────────────────────────────────────
   const setFilter = useCallback((filter: OrderFilter) => {
     dispatch({ type: 'SET_FILTER', payload: filter });
-  }, []);
+  }, [dispatch]);
 
   // ── Accept order (pending → in_transit, optimistic) ───────────────────────
   const acceptOrder = useCallback(
@@ -157,7 +112,7 @@ export function useOrders(): UseOrdersReturn {
         logger.error(`Failed to accept order ${id}`);
       }
     },
-    [state.orders]
+    [state.orders, dispatch]
   );
 
   // ── Reject order (remove from list, optimistic) ───────────────────────────
@@ -176,7 +131,7 @@ export function useOrders(): UseOrdersReturn {
         logger.error(`Failed to reject order ${id}`);
       }
     },
-    [state.orders]
+    [state.orders, dispatch]
   );
 
   // ── Mark as delivered (in_transit → delivered, optimistic) ────────────────
@@ -195,7 +150,7 @@ export function useOrders(): UseOrdersReturn {
         logger.error(`Failed to mark order ${id} as delivered`);
       }
     },
-    [state.orders]
+    [state.orders, dispatch]
   );
 
   // ── Derived state (memoised to avoid re-renders) ──────────────────────────

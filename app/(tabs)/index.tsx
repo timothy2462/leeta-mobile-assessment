@@ -61,6 +61,7 @@ export default function OrdersDashboard() {
 
   const [isOnline, setIsOnline] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [completedLimit, setCompletedLimit] = useState(5);
 
   // Bottom Sheet State
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
@@ -96,6 +97,11 @@ export default function OrdersDashboard() {
     await refresh();
     setIsRefreshing(false);
   }, [refresh]);
+
+  // Handle "See more" for completed orders
+  const handleSeeMore = useCallback(() => {
+    setCompletedLimit(prev => prev + 10);
+  }, []);
 
   // ── List item renderer (memoised key extractor + render) ──────────────────
   const keyExtractor = useCallback((item: Order) => item.id, []);
@@ -206,7 +212,25 @@ export default function OrdersDashboard() {
     [isOnline, todayStats, filter, setFilter, counts, filteredOrders.length]
   );
 
-  // ── Empty / Error list component ──────────────────────────────────────────
+  // ── List footer ───────────────────────────────────────────────────────────
+  const ListFooter = useCallback(
+    () => {
+      if (filter === 'delivered' && filteredOrders.length > completedLimit) {
+        return (
+          <TouchableOpacity 
+            onPress={handleSeeMore}
+            style={tw`mx-5 mt-2 mb-8 py-3 bg-white border border-neutral-200 rounded-xl items-center justify-center`}
+          >
+            <Text style={tw`text-brand font-semibold text-sm`}>See more</Text>
+          </TouchableOpacity>
+        );
+      }
+      return <View style={tw`h-10`} />;
+    },
+    [filter, filteredOrders.length, completedLimit, handleSeeMore]
+  );
+
+  // ── List Empty ────────────────────────────────────────────────────────────
   const ListEmpty = useCallback(
     () =>
       isError ? (
@@ -216,6 +240,11 @@ export default function OrdersDashboard() {
       ),
     [isError, error, refresh]
   );
+
+  // ── Display logic ─────────────────────────────────────────────────────────
+  const displayedOrders = filter === 'delivered' 
+    ? filteredOrders.slice(0, completedLimit) 
+    : filteredOrders;
 
   // ── Full-screen loading (first load only) ─────────────────────────────────
   if (isLoading) {
@@ -228,10 +257,11 @@ export default function OrdersDashboard() {
       <StatusBar style="dark" />
 
       <FlatList
-        data={filteredOrders}
+        data={displayedOrders}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         ListHeaderComponent={ListHeader}
+        ListFooterComponent={ListFooter}
         ListEmptyComponent={ListEmpty}
         refreshControl={
           <RefreshControl
@@ -243,7 +273,7 @@ export default function OrdersDashboard() {
         }
         contentContainerStyle={[
           tw`pb-10`,
-          filteredOrders.length === 0 && tw`flex-grow`,
+          displayedOrders.length === 0 && tw`flex-grow`,
         ]}
         showsVerticalScrollIndicator={false}
         // Performance optimisations

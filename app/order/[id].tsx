@@ -67,7 +67,7 @@ export default function OrderDetailsScreen() {
       {/* Absolute Positioned Toast */}
       <Toast 
         visible={toastVisible}
-        message="Order Completed Successfully!"
+        message="Order Delivered Successfully!"
         onHide={() => setToastVisible(false)}
       />
       

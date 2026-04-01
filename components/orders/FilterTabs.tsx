@@ -17,23 +17,18 @@ const TABS: { key: OrderFilter; label: string }[] = [
 
 export function FilterTabs({ filter, onFilterChange, counts }: FilterTabsProps) {
   return (
-    <View style={tw`mx-5 mb-4`}>
-      <View style={tw`flex-row bg-neutral-100 rounded-xl p-1`}>
+    <View style={tw`mb-4`}>
+      <View style={tw`flex-row bg-[#E8ECF2] p-1.5`}>
         {TABS.map((tab) => {
           const isActive = filter === tab.key;
-          const count = counts?.[tab.key];
 
           return (
             <TouchableOpacity
               key={tab.key}
               style={[
-                tw`flex-1 py-2.5 rounded-lg items-center justify-center`,
-                isActive && { backgroundColor: Colors.white },
+                tw`flex-1 py-3 rounded-xl items-center justify-center`,
+                isActive && tw`bg-white shadow-sm`,
                 isActive && {
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 1 },
-                  shadowOpacity: 0.08,
-                  shadowRadius: 4,
                   elevation: 2,
                 },
               ]}
@@ -43,7 +38,7 @@ export function FilterTabs({ filter, onFilterChange, counts }: FilterTabsProps) 
               accessibilityLabel={`${tab.label} orders tab`}
             >
               <Text
-                style={tw`text-sm font-${isActive ? 'semibold' : 'medium'} text-${isActive ? 'neutral-900' : 'neutral-500'}`}
+                style={tw`text-sm font-${isActive ? 'bold' : 'medium'} text-${isActive ? 'neutral-900' : 'neutral-500'}`}
               >
                 {tab.label}
               </Text>

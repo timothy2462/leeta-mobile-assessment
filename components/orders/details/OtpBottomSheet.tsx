@@ -67,8 +67,8 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
                 activeOpacity={1}
                 onPress={() => inputRef.current?.focus()}
                 style={[
-                  tw`w-14 h-16 rounded-xl border-2 items-center justify-center bg-white shadow-sm`,
-                  isActive ? tw`border-brand bg-brand/5` : tw`border-neutral-800`,
+                  tw`w-14 h-16 rounded-xl border-2 items-center justify-center bg-white`,
+                  isActive ? [{ borderColor: '#F97316', backgroundColor: '#FFF0E6' }] : tw`border-neutral-200`,
                 ]}
               >
                 <Text style={tw`text-2xl font-medium text-neutral-900`}>{digit}</Text>
