@@ -13,7 +13,7 @@ export default function ProfileScreen() {
   const [onlineStatus, setOnlineStatus] = useState(true);
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-neutral-100`} edges={['top']}>
+    <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <StatusBar style="dark" />
       <ScrollView
         contentContainerStyle={tw`px-5 pt-8 pb-10`}

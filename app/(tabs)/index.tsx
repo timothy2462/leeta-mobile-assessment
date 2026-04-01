@@ -253,7 +253,7 @@ export default function OrdersDashboard() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <SafeAreaView style={tw`flex-1 bg-neutral-100`} edges={['top']}>
+    <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <StatusBar style="dark" />
 
       <FlatList

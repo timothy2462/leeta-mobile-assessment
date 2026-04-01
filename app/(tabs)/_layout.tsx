@@ -20,6 +20,9 @@ export default function TabLayout() {
           {
             height: 60 + insets.bottom,
             paddingBottom: insets.bottom + 5,
+            alignSelf: 'center',
+            width: '100%',
+            maxWidth: 600,
           },
         ],
         tabBarLabelStyle: {

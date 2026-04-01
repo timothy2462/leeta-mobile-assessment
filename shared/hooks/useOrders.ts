@@ -99,6 +99,7 @@ export function useOrders(): UseOrdersReturn {
   // ── Accept order (pending → in_transit, optimistic) ───────────────────────
   const acceptOrder = useCallback(
     async (id: string) => {
+      logger.info('User initiated order acceptance', { orderId: id });
       const original = state.orders.find((o) => o.id === id);
       if (!original) return;
 
@@ -118,6 +119,7 @@ export function useOrders(): UseOrdersReturn {
   // ── Reject order (remove from list, optimistic) ───────────────────────────
   const rejectOrder = useCallback(
     async (id: string) => {
+      logger.info('User initiated order rejection', { orderId: id });
       const original = state.orders.find((o) => o.id === id);
       if (!original) return;
 
@@ -137,6 +139,7 @@ export function useOrders(): UseOrdersReturn {
   // ── Mark as delivered (in_transit → delivered, optimistic) ────────────────
   const markDelivered = useCallback(
     async (id: string) => {
+      logger.info('User initiated delivery completion', { orderId: id });
       const original = state.orders.find((o) => o.id === id);
       if (!original) return;
 

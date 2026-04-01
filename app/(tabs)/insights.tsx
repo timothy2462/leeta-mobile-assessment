@@ -44,7 +44,7 @@ export default function InsightsScreen() {
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#F4F5F9]`} edges={['top']}>
+    <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <StatusBar style="dark" />
       <ScrollView
         contentContainerStyle={tw`px-5 pt-8 pb-10`}

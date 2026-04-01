@@ -45,18 +45,12 @@ function log(level: LogLevel, message: string, data?: Record<string, unknown>): 
     logFn(prefix, message, data ?? '');
   }
 
-  // ── Production integration point ──────────────────────────────────────────
-  // Uncomment and configure one of these when deploying:
-  //
-  // Sentry:
-  // Sentry.addBreadcrumb({ message: entry.message, data: entry.data, level: entry.level });
-  // if (level === 'error') Sentry.captureMessage(message, 'error');
-  //
-  // Datadog:
-  // DdLogs[level](message, { ...data, timestamp: entry.timestamp });
-  //
-  // Custom analytics:
-  // analytics.track('app_log', entry);
+  if (level === 'error') {
+    // Sentry.captureException(new Error(message));
+    // DdLogs.error(message, data);
+  } else {
+    // Sentry.addBreadcrumb({ message, level, data });
+  }
 }
 
 export const logger = {

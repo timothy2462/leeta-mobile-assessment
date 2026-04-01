@@ -29,6 +29,13 @@ export function OtpBottomSheet({ visible, onClose, onComplete, customerName }: O
 
   const handleComplete = () => {
     if (isComplete) {
+      if (code !== '1234') {
+        const { logger } = require('@/lib/logger');
+        logger.error('Invalid OTP attempt', { 
+          customer: customerName, 
+          attempt: code 
+        });
+      }
       onComplete(code);
     }
   };

@@ -60,7 +60,7 @@ export default function OrderDetailsScreen() {
   const showSkeleton = isLoading || isOrdersLoading;
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#F4F5F9]`} edges={['top']}>
+    <SafeAreaView style={[tw`flex-1 bg-[#F4F5F9]`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
       <Stack.Screen options={{ headerShown: false }} />
       <StatusBar style="dark" />
       
