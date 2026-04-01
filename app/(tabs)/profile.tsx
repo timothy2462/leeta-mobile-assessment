@@ -29,89 +29,91 @@ export default function ProfileScreen() {
   };
 
   return (
-    <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['top']}>
-      <StatusBar style="dark" />
+    <SafeAreaView style={[tw`flex-1 bg-neutral-100`, { alignSelf: 'center', width: '100%', maxWidth: 600 }]} edges={['bottom', 'left', 'right']}>
+      <StatusBar style="light" />
       <ScrollView
-        contentContainerStyle={tw`px-5 pt-8 pb-10`}
+        contentContainerStyle={tw`pb-10`}
         showsVerticalScrollIndicator={false}
       >
         <ProfileHeader />
 
-        <ProfileSection title="Business & Documents">
-          <ProfileMenuItem
-            label="Business Profile"
-            icon="business"
-          />
-          <ProfileMenuItem
-            label="Document Verification"
-            icon="document-text"
-          />
-          <ProfileMenuItem
-            label="Payout Bank Account"
-            icon="wallet"
-            isLast
-          />
-        </ProfileSection>
+        <View style={tw`px-5`}>
+          <ProfileSection title="Business & Documents">
+            <ProfileMenuItem
+              label="Business Profile"
+              icon="business"
+            />
+            <ProfileMenuItem
+              label="Document Verification"
+              icon="document-text"
+            />
+            <ProfileMenuItem
+              label="Payout Bank Account"
+              icon="wallet"
+              isLast
+            />
+          </ProfileSection>
 
-        <ProfileSection title="Preferences & Security">
-          <ProfileMenuItem
-            label="Order Notifications"
-            icon="notifications"
-            showSwitch
-            switchValue={notificationsEnabled}
-            onSwitchChange={setNotificationsEnabled}
-          />
-          <ProfileMenuItem
-            label="Availability Mode"
-            icon="time"
-            showSwitch
-            switchValue={onlineStatus}
-            onSwitchChange={setOnlineStatus}
-          />
-          <ProfileMenuItem
-            label="Security & Password"
-            icon="shield-checkmark"
-          />
-          <ProfileMenuItem
-            label="Vehicle Information"
-            icon="car-sport"
-            isLast
-          />
-        </ProfileSection>
+          <ProfileSection title="Preferences & Security">
+            <ProfileMenuItem
+              label="Order Notifications"
+              icon="notifications"
+              showSwitch
+              switchValue={notificationsEnabled}
+              onSwitchChange={setNotificationsEnabled}
+            />
+            <ProfileMenuItem
+              label="Availability Mode"
+              icon="time"
+              showSwitch
+              switchValue={onlineStatus}
+              onSwitchChange={setOnlineStatus}
+            />
+            <ProfileMenuItem
+              label="Security & Password"
+              icon="shield-checkmark"
+            />
+            <ProfileMenuItem
+              label="Vehicle Information"
+              icon="car-sport"
+              isLast
+            />
+          </ProfileSection>
 
-        <ProfileSection title="Support & Legal">
-          <ProfileMenuItem
-            label="Help Center & FAQs"
-            icon="help-circle"
-          />
-          <ProfileMenuItem
-            label="Contact Support"
-            icon="chatbubbles"
-          />
-          <ProfileMenuItem
-            label="Terms of Service"
-            icon="reader"
-          />
-          <ProfileMenuItem
-            label="Privacy Policy"
-            icon="lock-closed"
-            isLast
-          />
-        </ProfileSection>
+          <ProfileSection title="Support & Legal">
+            <ProfileMenuItem
+              label="Help Center & FAQs"
+              icon="help-circle"
+            />
+            <ProfileMenuItem
+              label="Contact Support"
+              icon="chatbubbles"
+            />
+            <ProfileMenuItem
+              label="Terms of Service"
+              icon="reader"
+            />
+            <ProfileMenuItem
+              label="Privacy Policy"
+              icon="lock-closed"
+              isLast
+            />
+          </ProfileSection>
 
-        <ProfileSection title="Account Actions">
-          <ProfileMenuItem
-            label="Log Out"
-            icon="log-out"
-            onPress={handleLogout}
-          />
-          <ProfileMenuItem
-            label="Delete Account"
-            icon="trash"
-            destructive
-            isLast
-          />
-        </ProfileSection>
+          <ProfileSection title="Account Actions">
+            <ProfileMenuItem
+              label="Log Out"
+              icon="log-out"
+              onPress={handleLogout}
+            />
+            <ProfileMenuItem
+              label="Delete Account"
+              icon="trash"
+              destructive
+              isLast
+            />
+          </ProfileSection>
+        </View>
       </ScrollView>
 
       <BottomSheet
