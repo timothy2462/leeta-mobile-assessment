@@ -271,7 +271,6 @@ export default function OrdersDashboard() {
         windowSize={10}
       />
 
-      {/* ── Order Action Bottom Sheet ────────────────────────────────────────── */}
       <OrderConfirmationSheet
         order={selectedOrder}
         actionType={sheetAction}
