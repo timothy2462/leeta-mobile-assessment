@@ -14,7 +14,7 @@ Welcome to the **Leeta Agent Dashboard**, built as part of the Founding Engineer
 ### Installation
 1.  **Clone the repository**:
     ```bash
-    git clone [https://github.com/timothy2462/leeta-mobile-assessmentl]
+    git clone https://github.com/timothy2462/leeta-mobile-assessment
     cd leeta-mobile-assessment
     ```
 
