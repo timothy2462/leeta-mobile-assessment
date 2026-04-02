@@ -4,29 +4,34 @@ Welcome to the **Leeta Agent Dashboard**, built as part of the Founding Engineer
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v18+)
 - npm or yarn
 - Expo Go (optional, for physical device testing)
 
 ### Installation
+
 1.  **Clone the repository**:
+
     ```bash
     git clone https://github.com/timothy2462/leeta-mobile-assessment
     cd leeta-mobile-assessment
     ```
 
 2.  **Install dependencies**:
+
     ```bash
     npm install
     ```
 
 3.  **Start the application**:
+
     ```bash
     npm start
-    npx expo start 
+    npx expo start
     ```
 
 4.  **Running on different platforms**:
@@ -36,43 +41,41 @@ Welcome to the **Leeta Agent Dashboard**, built as part of the Founding Engineer
 
 ---
 
-## 🏗️ Architecture Decisions
+## Architecture Decisions
 
 The project follows a **modular, scalable architecture** designed for long-term maintenance and production growth:
 
-1.  **Context-Driven State Management**: 
-    - Used `AuthContext` and `OrdersContext` to manage global application state (user sessions and order data). 
+1.  **Context-Driven State Management**:
+    - Used `AuthContext` and `OrdersContext` to manage global application state (user sessions and order data).
     - This ensures real-time data synchronization across different segments like the Dashboard, Order Details, and Insights.
-    
-2.  **Separation of Concerns (Hooks)**: 
+2.  **Separation of Concerns (Hooks)**:
     - Business logic is extracted into custom hooks (e.g., `useOrders.ts`). This keeps UI components thin, highly readable, and easily testable.
 
-3.  **File-Based Routing**: 
+3.  **File-Based Routing**:
     - Leverages `expo-router` for a modern, directory-based navigation structure. Organized into `(auth)` and `(tabs)` groups for a clean separation between protected and public routes.
 
-4.  **Atomic Design System**: 
+4.  **Atomic Design System**:
     - Standardized tokens in `lib/design-system.ts` (Colors, Typography, Shadows) ensure visual consistency across both mobile and web platforms.
     - Used `twrnc` (Tailwind for React Native) for rapid, consistent styling.
 
-5.  **Monitoring-Ready Logging**: 
+5.  **Monitoring-Ready Logging**:
     - Implemented a centralized `lib/logger.ts` utility. This allows us to track errors and user breadcrumbs in development via the console, with clear hook-ins for production services like Sentry or Datadog.
 
 ---
 
-## ⚖️ Trade-offs Made
+## Trade-offs Made
 
-1.  **Mock API Layer**: 
+1.  **Mock API Layer**:
     - To focus on UI/UX and product thinking within the 48-hour window, I implemented a robust mock API with simulated network delays/errors rather than a live backend.
-    
-2.  **Web Persistence**: 
+2.  **Web Persistence**:
     - For this assessment, I used `localStorage` to handle session persistence on the web. In a full production native app, I would transition this to `expo-secure-store` or `AsyncStorage` for encrypted/reliable device storage.
 
-3.  **Mocked Third-party Auth**: 
+3.  **Mocked Third-party Auth**:
     - The authentication flow mimics a real OAuth/JWT system but uses purely client-side logic to demonstrate the UX/onboarding flow without requiring external server setup.
 
 ---
 
-## 🛠️ What I Would Improve with More Time
+## What I Would Improve with More Time
 
 1.  **Live Backend Integration**: Connect to a real database (e.g., Supabase or Firebase) for multi-agent synchronization and real-time order updates (WebSockets/Push Notifications).
 2.  **Offline-First Support**: Implement a local database (like SQLite or WatermelonDB) to allow agents to process orders in areas with weak signal, syncing once they go back online.
@@ -82,26 +85,30 @@ The project follows a **modular, scalable architecture** designed for long-term 
 
 ---
 
-## 🧪 How to Run Tests
+## How to Run Tests
 
 The project uses **Jest** and **React Testing Library** for behavioral testing.
 
 ### Run all tests
+
 ```bash
 npm test
 ```
 
 ### Run tests in watch mode
+
 ```bash
 npm run test:watch
 ```
 
 ### View coverage report
+
 ```bash
 npm run test:coverage
 ```
 
 ---
 
-### 👤 Author
-*Founding Engineer Timothy Akobundu*
+### Author
+
+_Founding Engineer Timothy Akobundu_

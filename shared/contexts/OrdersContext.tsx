@@ -1,45 +1,45 @@
-import React, { createContext, useReducer, ReactNode } from 'react';
-import {
-  Order,
-  OrderFilter,
-  OrdersState,
-  OrdersAction,
-} from '../types/order';
+import React, { createContext, ReactNode, useReducer } from "react";
+import { OrdersAction, OrdersState } from "../types/order";
 
 const initialState: OrdersState = {
   orders: [],
-  status: 'idle',
+  status: "idle",
   error: null,
-  filter: 'pending',
+  filter: "pending",
 };
 
 function reducer(state: OrdersState, action: OrdersAction): OrdersState {
   switch (action.type) {
-    case 'FETCH_START':
-      return { ...state, status: 'loading', error: null };
-    case 'FETCH_SUCCESS':
-      return { ...state, status: 'success', orders: action.payload, error: null };
-    case 'FETCH_ERROR':
-      return { ...state, status: 'error', error: action.payload };
-    case 'SET_FILTER':
+    case "FETCH_START":
+      return { ...state, status: "loading", error: null };
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        status: "success",
+        orders: action.payload,
+        error: null,
+      };
+    case "FETCH_ERROR":
+      return { ...state, status: "error", error: action.payload };
+    case "SET_FILTER":
       return { ...state, filter: action.payload };
-    case 'UPDATE_ORDER_STATUS':
+    case "UPDATE_ORDER_STATUS":
       return {
         ...state,
         orders: state.orders.map((o) =>
-          o.id === action.id ? { ...o, status: action.status } : o
+          o.id === action.id ? { ...o, status: action.status } : o,
         ),
       };
-    case 'REMOVE_ORDER':
+    case "REMOVE_ORDER":
       return {
         ...state,
         orders: state.orders.filter((o) => o.id !== action.id),
       };
-    case 'REVERT_ORDER':
+    case "REVERT_ORDER":
       return {
         ...state,
         orders: state.orders.map((o) =>
-          o.id === action.payload.id ? action.payload : o
+          o.id === action.payload.id ? action.payload : o,
         ),
       };
     default:
@@ -52,7 +52,9 @@ interface OrdersContextType {
   dispatch: React.Dispatch<OrdersAction>;
 }
 
-export const OrdersContext = createContext<OrdersContextType | undefined>(undefined);
+export const OrdersContext = createContext<OrdersContextType | undefined>(
+  undefined,
+);
 
 export function OrdersProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);

@@ -1,8 +1,8 @@
-import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { LineChart } from 'react-native-gifted-charts';
-import tw from '@/lib/tailwind';
-import { Colors, Shadows } from '@/lib/design-system';
+import { Colors, Shadows } from "@/lib/design-system";
+import tw from "@/lib/tailwind";
+import { Ionicons } from "@expo/vector-icons";
+import { Text, View } from "react-native";
+import { LineChart } from "react-native-gifted-charts";
 
 interface InsightsChartProps {
   data: any[];
@@ -61,10 +61,12 @@ export function InsightsChart({ data }: InsightsChartProps) {
                 ]}
               >
                 <Text style={tw`text-xs font-bold text-neutral-900 mb-2`}>
-                  {item.day || 'Day'}
+                  {item.day || "Day"}
                 </Text>
                 <View style={tw`flex-row justify-between w-full mb-1`}>
-                  <Text style={tw`text-[10px] text-neutral-500`}>Today's order</Text>
+                  <Text style={tw`text-[10px] text-neutral-500`}>
+                    Today's order
+                  </Text>
                   <Text style={tw`text-[10px] font-bold text-neutral-900`}>
                     {item.order || item.value}
                   </Text>
@@ -72,7 +74,7 @@ export function InsightsChart({ data }: InsightsChartProps) {
                 <View style={tw`flex-row justify-between w-full`}>
                   <Text style={tw`text-[10px] text-neutral-500`}>Earnings</Text>
                   <Text style={tw`text-[10px] font-bold text-success`}>
-                    {item.earnings || '₦0'}
+                    {item.earnings || "₦0"}
                   </Text>
                 </View>
               </View>
